@@ -69,10 +69,10 @@ export class AppComponent {
   amountVisible = [true, true, true];
 
   sampleData1: any = [
-    { iconPath: '../assets/stripe.png', date: new Date(), title: 'Stripe', tagButton: 'Business', value: 1223.00 },
-    { iconPath: '../assets/dropbox.png', date: new Date(), title: 'Dropbox', tagButton: 'Equipment', value: -220.00 },
-    { iconPath: '../assets/zendesk.png', date: new Date(), title: 'Zendesk', tagButton: 'Marketing', value: -1223.00 },
-    { iconPath: '../assets/spotify.png', date: new Date(), title: 'Spotify', tagButton: 'Entertainment', value: -19.00 },
+    { iconPath: 'https://nazirahmed7010.github.io/drippple-sample-test/assets/stripe.png', date: new Date(), title: 'Stripe', tagButton: 'Business', value: 1223.00 },
+    { iconPath: 'https://nazirahmed7010.github.io/drippple-sample-test/assets/dropbox.png', date: new Date(), title: 'Dropbox', tagButton: 'Equipment', value: -220.00 },
+    { iconPath: 'https://nazirahmed7010.github.io/drippple-sample-test/assets/zendesk.png', date: new Date(), title: 'Zendesk', tagButton: 'Marketing', value: -1223.00 },
+    { iconPath: 'https://nazirahmed7010.github.io/drippple-sample-test/assets/spotify.png', date: new Date(), title: 'Spotify', tagButton: 'Entertainment', value: -19.00 },
   ]
 
   togglePanel(index: number) {
