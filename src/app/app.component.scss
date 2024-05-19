@@ -204,7 +204,6 @@ a:hover {
 
 .card-trend-icon-1,
 .card-trend-icon-2 {
-  color: black;
   border-radius: 10px;
   width: 20px;
   font-size: 11px;
@@ -212,6 +211,10 @@ a:hover {
   height: 12px;
   text-align: center;
   font-weight: 600;
+}
+
+.card-trend-icon-2 {
+  color: #fff
 }
 
 .card-trend-icon-1 {
@@ -422,7 +425,7 @@ a:hover {
 
 .unfold-more-icon {
   font-size: small;
-  vertical-align: bottom;
+  vertical-align: bottom !important;
   color: darkgrey;
 }
 
