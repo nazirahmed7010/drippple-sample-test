@@ -1,0 +1,304 @@
+<div class="parent-grid">
+
+  <!-- Header Section Start-->
+  <mat-toolbar color="primary" class="navbar">
+    <!-- Left Section -->
+    <div class="navbar-left">
+      <mat-icon class="vertical-middle">stacked_line_chart</mat-icon>
+      <mat-menu #appMenu="matMenu">
+        <button mat-menu-item>Option 1</button>
+        <button mat-menu-item>Option 2</button>
+        <button mat-menu-item>Option 3</button>
+      </mat-menu>
+      <button mat-button [matMenuTriggerFor]="appMenu">
+        <img src="./../assets/logo.png" />
+        Framer
+        <mat-icon class="unfold-more-icon">unfold_more</mat-icon>
+      </button>
+    </div>
+
+    <!-- Middle Section -->
+    <div class="navbar-center">
+      <a mat-button routerLink="/dashboard" class="active-route">Dashboard</a>
+      <a mat-button routerLink="/payments">Payments</a>
+      <a mat-button routerLink="/transactions">Transactions</a>
+      <a mat-button routerLink="/cards">Cards</a>
+      <a mat-button routerLink="/invoices">Invoices</a>
+      <a mat-button routerLink="/insights">Insights</a>
+    </div>
+
+    <!-- Right Section -->
+    <div class="navbar-right">
+      <div class="search-container" [class.expanded]="isSearchExpanded">
+        <input matInput *ngIf="isSearchExpanded" placeholder="Search...">
+        <button mat-icon-button (click)="toggleSearch()">
+          <mat-icon>{{ isSearchExpanded ? 'close' : 'search' }}</mat-icon>
+        </button>
+      </div>
+      <button mat-icon-button>
+        <mat-icon>notifications</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon>settings</mat-icon>
+      </button>
+      <img src="./../assets/avatar.png" alt="Profile" class="profile-image">
+    </div>
+  </mat-toolbar>
+  <!-- Header Section End-->
+
+  <!-- Header Info Section -->
+  <div class="container pt-70">
+
+    <div class="row">
+      <div class="col-6">TOTAL BALANCE</div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <h1>
+          $36,254
+          <small class="medium-font">
+            <mat-icon class="trend-icon">arrow_outward</mat-icon>
+            $328,32 Today, Feb 16
+          </small>
+        </h1>
+
+      </div>
+      <div class="col-6 d-flex flex-row button-sec">
+        <button mat-button class="analytics-btn"><mat-icon
+            class="mr-1">visibility</mat-icon>View Analytics</button>
+        <button mat-flat-button color="primary"><mat-icon>arrow_outward</mat-icon>Send Money</button>
+        <button mat-button class="bg-custom-grey"><mat-icon class="mr-1">add</mat-icon>Add
+          Money</button>
+        <button mat-icon-button>
+          <mat-icon>more_horiz</mat-icon>
+        </button>
+      </div>
+
+    </div>
+  </div>
+  <!-- Header Info Section -->
+
+  <!-- Overview Label -->
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12 overview-label">
+        <mat-icon>sunny_snowing</mat-icon>
+        <h4>Overview</h4>
+        <small>Last 30 days</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel Section -->
+  <div class="panel-container">
+    <div class="expansion-panel" [@expandPanel]="panelStates[0]" (mouseenter)="onMouseEnter(0)"
+      (mouseleave)="onMouseLeave(0)">
+      <div class="panel-content d-flex">
+        <div class="info-section">
+          <mat-icon class="transition main-icon" [ngClass]="{
+            'expanded-icon': panelStates[0]=='expanded',
+            'collapse-hover': panelStates[0]=='collapsed' && !amountVisible[0],
+            'expanded-hover': panelStates[0]=='expanded' && !amountVisible[0]
+             }">supervised_user_circle</mat-icon>
+          <div class="heading">Business Account <mat-icon class="card-trend-icon-1">arrow_outward</mat-icon>
+            <span class="">12.3%</span><span class="transition gray-color" *ngIf="panelStates[0]=='expanded'">VS. LAST Week</span>
+          </div>
+          <div *ngIf="amountVisible[0] || panelStates[0]=='expanded'" class="amount"
+            [@fadeInOut]="$any(amountVisible[0]) ? 'in' : 'out'">$33,842</div>
+        </div>
+        <div *ngIf="panelStates[0]=='expanded'" class="chart-height">
+          <div [chart]="chart"></div>
+        </div>
+      </div>
+      <div *ngIf="!amountVisible[0] && panelStates[0]=='collapsed'" class="pannel-action-section"
+        [@fadeInOut]="$any(!amountVisible[0]) ? 'in' : 'out'">
+        <div>
+          <button mat-button class="detail-button">View Account Details</button>
+        </div>
+        <div class="ml-auto">
+          <button mat-mini-fab color="primary" (click)="togglePanel(0)">
+            <mat-icon>monitoring</mat-icon>
+          </button>
+        </div>
+      </div>
+      <button *ngIf="panelStates[0]=='expanded'" class="expansion-button" (click)="togglePanel(0)">&lt;</button>
+    </div>
+
+
+    <div class="expansion-panel" [@expandPanel]="panelStates[1]" (mouseenter)="onMouseEnter(1)"
+      (mouseleave)="onMouseLeave(1)">
+      <div class="panel-content d-flex">
+        <div class="info-section">
+          <mat-icon class="transition main-icon"
+          [ngClass]="{
+            'expanded-icon': panelStates[1]=='expanded',
+            'collapse-hover': panelStates[1]=='collapsed' && !amountVisible[1],
+            'expanded-hover': panelStates[1]=='expanded' && !amountVisible[1]
+             }">description</mat-icon>
+          <div class="heading">Tax Reserve<mat-icon class="card-trend-icon-2">arrow_outward</mat-icon>
+            <span class="">12.3%</span>
+          </div>
+          <div *ngIf="amountVisible[1] || panelStates[1]=='expanded'" class="amount"
+            [@fadeInOut]="$any(amountVisible[1]) ? 'in' : 'out'">
+            <span [innerHTML]="700 | currencyFormatter2"></span>
+          </div>
+        </div>
+        <div *ngIf="panelStates[1]=='expanded'" class="chart-height">
+          <div [chart]="chart"></div>
+        </div>
+      </div>
+      <div *ngIf="!amountVisible[1] && panelStates[1]=='collapsed'" class="pannel-action-section"
+        [@fadeInOut]="$any(!amountVisible[1]) ? 'in' : 'out'">
+        <div>
+          <button mat-button class="detail-button">View Account Details</button>
+        </div>
+        <div class="ml-auto">
+          <button mat-mini-fab color="primary" (click)="togglePanel(1)">
+            <mat-icon>monitoring</mat-icon>
+          </button>
+        </div>
+      </div>
+      <button *ngIf="panelStates[1]=='expanded'" class="expansion-button" (click)="togglePanel(1)">&lt;</button>
+    </div>
+
+    <div class="expansion-panel" [@expandPanel]="panelStates[2]" (mouseenter)="onMouseEnter(2)"
+      (mouseleave)="onMouseLeave(2)">
+      <div class="panel-content d-flex">
+        <div class="info-section">
+          <mat-icon class="transition main-icon"
+          [ngClass]="{
+            'expanded-icon': panelStates[2]=='expanded',
+            'collapse-hover': panelStates[2]=='collapsed' && !amountVisible[2],
+            'expanded-hover': panelStates[2]=='expanded' && !amountVisible[2]
+             }">layers</mat-icon>
+          <div class="heading">Business Savings<mat-icon class="card-trend-icon-1">arrow_outward</mat-icon>
+            <span>12.3%</span>
+          </div>
+          <div *ngIf="amountVisible[2] || panelStates[2]=='expanded'" class="amount"
+            [@fadeInOut]="$any(amountVisible[2]) ? 'in' : 'out'">$1,623</div>
+        </div>
+        <div *ngIf="panelStates[2]=='expanded'" class="chart-height">
+          <div [chart]="chart"></div>
+        </div>
+      </div>
+      <div *ngIf="!amountVisible[2] && panelStates[2]=='collapsed'" class="pannel-action-section"
+        [@fadeInOut]="$any(!amountVisible[2]) ? 'in' : 'out'">
+        <div>
+          <button mat-button class="detail-button">View Account Details</button>
+        </div>
+        <div class="ml-auto">
+          <button mat-mini-fab color="primary" (click)="togglePanel(2)">
+            <mat-icon>monitoring</mat-icon>
+          </button>
+        </div>
+      </div>
+      <button *ngIf="panelStates[2]=='expanded'" class="expansion-button" (click)="togglePanel(2)">&lt;</button>
+    </div>
+
+  </div>
+  <!-- END Panel Section -->
+</div>
+
+<div class="container list-section">
+  <div class="row">
+    <div class="col-6">
+
+      <div class="d-flex recent-trans">
+        <mat-icon>open_with</mat-icon>
+        <h3 class="pl-3">Recent Transactions</h3>
+        <span class="pl-3 my-auto">Last 5 activity</span>
+        <p class="see-all">See All</p>
+      </div>
+
+      <mat-list>
+        <ng-container *ngFor="let data of sampleData1">
+          <mat-list-item class="bottom-br">
+            <div class="list-item-content">
+              <div>
+                <img class="pr-2 mr-2 list-img" [src]="data.iconPath">
+                <div class="list-title">
+                  <div mat-line>{{data.title}}</div>
+                  <div mat-line> {{data.date | date}} </div>
+                </div>
+              </div>
+              <div>
+                <button mat-button class="bg-custom-grey">{{data.tagButton}}</button>
+              </div>
+              <div>
+                <span [innerHTML]="data.value | currencyFormatter"></span>
+              </div>
+            </div>
+          </mat-list-item>
+        </ng-container>
+      </mat-list>
+    </div>
+
+    <div class="col-6">
+      <div class="d-flex recent-trans">
+        <mat-icon>open_with</mat-icon>
+        <h3 class="pl-3">Cash Flow</h3>
+        <span class="pl-3 my-auto">Last 30 days</span>
+        <p class="see-all">See All</p>
+      </div>
+
+      <div class="w-100 d-flex">
+        <div class="w-50 d-flex cashflow-section">
+          <img src="./../assets/downloader.png" />
+          <div class="month-number pl-2 ml-1">
+            <div class="month">MONEY IN</div>
+            <div class="number">$5,083</div>
+          </div>
+        </div>
+        <div class="w-50 d-flex cashflow-section">
+          <img src="./../assets/downloader.png" />
+          <div class="month-number pl-2 ml-1">
+            <div class="month">MONEY IN</div>
+            <div class="number"><span [innerHTML]="484.63 | currencyFormatter2"></span></div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="w-100">
+        <div class="progress-heading">
+          <mat-icon class="progress-icon-1">expand_circle_down</mat-icon>
+          <label class="text-label">Stripe</label>
+          <label class="number-label">%70</label>
+          <label class="float-right"><span [innerHTML]="3514.72 | currencyFormatter2"></span></label>
+        </div>
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-custom1" role="progressbar" style="width: 70%"
+            aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+
+        <div class="progress-heading">
+          <mat-icon class="progress-icon-2">expand_circle_down</mat-icon>
+          <label class="text-label">Crypto Academy</label>
+          <label class="number-label">%28</label>
+          <label class="float-right"><span [innerHTML]="1017.72 | currencyFormatter2"></span></label>
+        </div>
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-custom2" role="progressbar" style="width: 28%"
+            aria-valuenow="28" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+
+
+        <div class="progress-heading">
+          <mat-icon class="progress-icon-3">expand_circle_down</mat-icon>
+          <label class="text-label">Wire Return</label>
+          <label class="number-label">%6</label>
+          <label class="float-right"><span [innerHTML]="318.72 | currencyFormatter2"></span></label>
+        </div>
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-custom3" role="progressbar" style="width: 6%"
+            aria-valuenow="6" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!--  -->
